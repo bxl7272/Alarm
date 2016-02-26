@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TimePicker;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static int alarmHour = 0;
+    private static int alarmMinute = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void initializeAlarm() {
+        final TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        FloatingActionButton setAlarm = (FloatingActionButton) findViewById(R.id.setAlarm);
+        setAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alarmHour = timePicker.getHour();
+                alarmMinute = timePicker.getMinute();
+            }
+        });
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -50,3 +64,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
