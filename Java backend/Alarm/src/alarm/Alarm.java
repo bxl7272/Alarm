@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package alarm;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -29,8 +25,8 @@ public class Alarm {
         while (true) {
             while (!alarmOn) {
                 System.out.println("Set the alarm");
-                while (alarmHour < 0 || alarmHour > 12) {
-                    System.out.println("Hours: (1-12)");
+                while (alarmHour < 0 || alarmHour > 11) {
+                    System.out.println("Hours: (0-11)");
                     alarmHour = in.nextInt();
                 }
                 while (alarmMinute < 0 || alarmMinute > 59) {
@@ -42,27 +38,19 @@ public class Alarm {
                     amPm = in.nextLine().toLowerCase();
                 }
                 if (amPm.equals("pm")) {
-                    alarmHour += 11;
+                    alarmHour += 12;
                     System.out.println(alarmHour + ":" + alarmMinute);
                 }
+                convertAlarmTime();
+                alarmOn = true;
             }
             while (alarmOn) {
-
             }
         }
 
     }
-
-    public void setAlarm() {
-
+    public static void convertAlarmTime(){
+        long millis = System.currentTimeMillis();
+        int tempMin = (int)TimeUnit.MILLISECONDS.toMinutes(millis);
     }
-
-    public void getAlarm() {
-
-    }
-
-    public void ring() {
-
-    }
-
 }
