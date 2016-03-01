@@ -1,5 +1,9 @@
 package alarm;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -7,13 +11,13 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Byron
  */
-public class Alarm {
-
-    private static int startTime = 0;
-    private static int endTime = 0;
+public class Alarm{
+    private Clock clock;
     private static int alarmHour = -1;
     private static int alarmMinute = -1;
     private static String amPm = "";
+    static LocalDateTime currentTime;
+    static LocalDateTime alarmTime;
 
     /**
      * @param args the command line arguments
@@ -41,16 +45,25 @@ public class Alarm {
                     alarmHour += 12;
                     System.out.println(alarmHour + ":" + alarmMinute);
                 }
-                convertAlarmTime();
+                createDateTime();
                 alarmOn = true;
             }
             while (alarmOn) {
+                if (LocalDateTime.now().equals(alarmTime)){
+                    ring();
+                    alarmOn = false;
+                }
+                        
             }
         }
 
     }
-    public static void convertAlarmTime(){
-        long millis = System.currentTimeMillis();
-        int tempMin = (int)TimeUnit.MILLISECONDS.toMinutes(millis);
+    public static void createDateTime(){
+        currentTime = LocalDateTime.now();
+        alarmTime = currentTime.plusHours(alarmHour-currentTime.getHour()).plusMinutes(alarmMinute-currentTime.getMinute());
+        System.out.println(alarmTime.toString());
+    }
+    public static void ring(){
+        System.out.println("Ringing");
     }
 }
